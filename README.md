@@ -580,3 +580,25 @@ options {
 ```
 service bind9 restart
 ```
+
+## 🏷️ Soal 1: Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Foosha
+
+- Tambah Aturan IPTABLES dengan syarat ip eth0 sudah dibuat static tidak menggunakan DHCP (lihat config)
+
+```
+iptables -t nat -A POSTROUTING -s 10.37.0.0/21 -o eth0 -j SNAT --to-source 192.168.122.146
+```
+
+Keterangan:
+- **NAT Table** adalah translasi jaringan lokal yg lewat firewall ke jaringan luar
+- **POSTROUTING** adalah dijalankan SNAT mengubah almt asal paket
+- **-t** adalah config untuk definisi table
+- **-A** adalah command untuk menambah aturan iptable
+- **-s** adalah source  
+- **-o** adalah out interface
+- **-j** adalah spesifikasi source  
+- **--to-source** adalah spesifikasi alamat ip
