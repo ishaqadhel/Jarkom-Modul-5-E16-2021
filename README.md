@@ -646,3 +646,30 @@ Keterangan:
 - **connlimit mask** adalah definisi netmask yang akan masuk pada aturan kalau 0 berarti semua netmask
 - **-j** adalah definisi rule  
 - **DROP** adalah aturan untuk menolak paket
+
+## 🏷️ Soal 4: Kemudian kalian diminta untuk membatasi akses ke Doriki yang berasal dari subnet Blueno, Cipher, Elena dan Fukuro dengan beraturan sebagai berikut: (1) Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis. Selain itu direject.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Doriki
+
+- Tambah Aturan IPTABLES
+
+```
+iptables -A INPUT -s 10.37.7.0/25 -m time --timestart 07:00 --timestop 15:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -s 10.37.0.0/22 -m time --timestart 07:00 --timestop 15:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -s 10.37.7.0/25 -j REJECT
+iptables -A INPUT -s 10.37.0.0/22 -j REJECT
+```
+
+Keterangan:
+- **-A** adalah command untuk menambah aturan iptable
+- **INPUT** adalah melakukan filter paket yang masuk firewall
+- **-s** adalah source  
+- **-m** adalah definisiin kesesuaian rule untuk tujuan
+- **-timestart** adalah deklarasi untuk range waktu mulai aturan
+- **-timestop** adalah deklarasi untuk range waktu berenti aturan
+- **–days** adalah deklarasi untuk range hari aturan 
+- **-j** adalah definisi rule  
+- **ACCEPT** adalah aturan untuk menerima paket
+- **REJECT** adalah aturan untuk menolak paket dengan memberi error message
