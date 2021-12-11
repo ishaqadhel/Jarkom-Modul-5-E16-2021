@@ -673,3 +673,28 @@ Keterangan:
 - **-j** adalah definisi rule  
 - **ACCEPT** adalah aturan untuk menerima paket
 - **REJECT** adalah aturan untuk menolak paket dengan memberi error message
+
+## 🏷️ Soal 5: Kemudian kalian diminta untuk membatasi akses ke Doriki yang berasal dari subnet Blueno, Cipher, Elena dan Fukuro dengan beraturan sebagai berikut: (2) Akses dari subnet Elena dan Fukuro hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Doriki
+
+- Tambah Aturan IPTABLES
+
+```
+iptables -A INPUT -s 10.37.4.0/23 -m time --timestart 07:00 --timestop 15:00 -j REJECT
+iptables -A INPUT -s 10.37.6.0/24 -m time --timestart 07:00 --timestop 15:00 -j REJECT
+```
+
+Keterangan:
+- **-A** adalah command untuk menambah aturan iptable
+- **INPUT** adalah melakukan filter paket yang masuk firewall
+- **-s** adalah source  
+- **-m** adalah definisiin kesesuaian rule untuk tujuan
+- **-timestart** adalah deklarasi untuk range waktu mulai aturan
+- **-timestop** adalah deklarasi untuk range waktu berenti aturan
+- **–days** adalah deklarasi untuk range hari aturan 
+- **-j** adalah definisi rule  
+- **ACCEPT** adalah aturan untuk menerima paket
+- **REJECT** adalah aturan untuk menolak paket dengan memberi error message
