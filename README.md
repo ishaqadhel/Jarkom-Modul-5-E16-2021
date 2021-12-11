@@ -232,3 +232,71 @@ route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.37.7.146
 ```
 route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.37.7.149
 ```
+
+### 🔧 Konfigurasi tambahan pada Foosha
+
+- Tambahkan perintah dibawah pada .bashrc
+```
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s [Prefix IP].0.0/21
+```
+Keterangan:
+- **iptables** merupakan suatu tools dalam sistem operasi Linux yang berfungsi sebagai filter terhadap lalu lintas data.
+- **Nat** adalah metode penafsiran alamat jaringan yang digunakan untuk menghubungkan lebih dari satu komputer ke jaringan internet dengan satu IP.
+- **Masquerade** berfungsi untuk menyamarkan paket, misal mengganti alamat pengirim dengan alamat router.
+
+- Buka /etc/resolv.conf
+
+```
+cat /etc/resolv.conf
+```
+Hasil dari file diatas, salin pada node **Lainnya** agar node dapat tersambung dengan internet.
+
+## 🏷️ Prepare Tools: Sebelum lanjut ke soal shift pastikan meginstall semua tools dibawah
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Foosha
+
+```
+apt-get update
+apt-get install nano
+```
+
+#### 🖥️ Node Water7 dan Guanhao
+
+```
+apt-get update
+apt-get install nano
+apt-get install isc-dhcp-relay -y
+```
+
+#### 🖥️ Node Jipangu
+
+```
+apt-get update
+apt-get install nano
+apt-get install isc-dhcp-server -y
+```
+
+#### 🖥️ Node Doriki
+
+```
+apt-get update
+apt-get install nano
+apt-get install bind9 -y
+```
+
+#### 🖥️ Node Jorge dan Maingate
+
+```
+apt-get update
+apt-get install nano
+apt-get install apache2 -y
+```
+
+#### 🖥️ Node Client
+
+```
+apt-get update
+apt-get install nano
+```
