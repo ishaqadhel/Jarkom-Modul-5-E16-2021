@@ -698,3 +698,51 @@ Keterangan:
 - **-j** adalah definisi rule  
 - **ACCEPT** adalah aturan untuk menerima paket
 - **REJECT** adalah aturan untuk menolak paket dengan memberi error message
+
+## 🏷️ Soal 6: Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Guanhao
+
+- Tambah Aturan IPTABLES
+
+```
+iptables -A PREROUTING -t nat -p tcp -d 10.37.7.130 --dport 80 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.37.7.138:80
+iptables -A PREROUTING -t nat -p tcp -d 10.37.7.130 --dport 80 -j DNAT --to-destination 10.37.7.139:80
+iptables -t nat -A POSTROUTING -p tcp -d 10.37.7.138 --dport 80 -j SNAT --to-source 10.37.7.130
+iptables -t nat -A POSTROUTING -p tcp -d 10.37.7.139 --dport 80 -j SNAT --to-source 10.37.7.130
+```
+
+#### 🖥️ Node Jorge dan Maingate
+
+- Restart Apache2 dan Enable 000-default.conf untuk jaga2
+
+```
+cd /etc/apache2/sites-available
+a2ensite 000-default.conf
+service apache2 restart
+```
+
+- Ubah Index HTML untuk menandakan Jorge atau Maingate
+
+```
+nano /var/www/html/index.html
+```
+
+```
+<h1>ini [namaserver]</h1>
+```
+
+Keterangan:
+- **-A** adalah command untuk menambah aturan iptable
+- **PREROUTING** adalah manipulasi paket sebelum masuk routing
+- **-t** adalah config untuk definisi table
+- **-p** adalah protocol yang ingin dimasukkan ke aturan iptable
+- **-d** adalah destination
+- **--dport** adalah pilihan port untuk aturan IPTABLE
+- **statistic** adalah untuk skip or accept a rule based on some statistic conditions
+- **mode** adalah deklarasi aturan loadbalancing ada 2 random ama nth (roundrobin)
+- **every packet** adalah rule buat jalanin loadbalancing round robin  
+- **-j** adalah definisi rule  
+- **POSTROUTING** adalah mengubah alamat asal dari paket
