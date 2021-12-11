@@ -45,3 +45,190 @@ Untuk lebih mudahnya bisa menggunakan calculator pada https://www.calculator.net
 
 ### 📚 Hasil Pembagian IP
 ![image](https://user-images.githubusercontent.com/49280352/145669142-00c49c6d-7682-4fe8-8a4a-6955df5da20c.png)
+
+## 🔧 Config Node
+
+### 🔧 Edit Network Configuration Ubuntu 1.2
+
+```
+auto eth0
+iface eth0 inet static
+address 192.168.122.250
+netmask 255.255.255.0
+gateway 192.168.122.146
+```
+
+### 🔧 Edit Network Configuration Foosha
+
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+address 10.37.7.146
+netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+address 10.37.7.149
+netmask 255.255.255.252
+```
+
+### 🔧 Edit Network Configuration Water7
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.145
+netmask 255.255.255.252
+gateway 10.37.7.146
+
+auto eth1
+iface eth1 inet static
+address 10.37.7.129
+netmask 255.255.255.248
+
+auto eth2
+iface eth2 inet static
+address 10.37.7.1
+netmask 255.255.255.128
+
+auto eth3
+iface eth3 inet static
+address 10.37.0.1
+netmask 255.255.252.0
+```
+
+### 🔧 Edit Network Configuration Blueno
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.2
+netmask 255.255.255.128
+gateway 10.37.7.1
+```
+
+### 🔧 Edit Network Configuration Cipher
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.0.2
+netmask 255.255.252.0
+gateway 10.37.0.1
+```
+
+### 🔧 Edit Network Configuration Doriki
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.130
+netmask 255.255.255.248
+gateway 10.37.7.129
+```
+
+### 🔧 Edit Network Configuration Jipangu
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.131
+netmask 255.255.255.248
+gateway 10.37.7.129
+```
+
+### 🔧 Edit Network Configuration Guanhao
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.150
+netmask 255.255.255.252
+gateway 10.37.7.149
+
+auto eth1
+iface eth1 inet static
+address 10.37.7.137
+netmask 255.255.255.248
+
+auto eth2
+iface eth2 inet static
+address 10.37.4.1
+netmask 255.255.254.0
+
+auto eth3
+iface eth3 inet static
+address 10.37.6.1
+netmask 255.255.255.0
+```
+
+### 🔧 Edit Network Configuration Elena
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.4.2
+netmask 255.255.254.0
+gateway 10.37.4.1
+```
+
+### 🔧 Edit Network Configuration Fukurou
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.6.2
+netmask 255.255.255.0
+gateway 10.37.6.1
+```
+
+### 🔧 Edit Network Configuration Jorge
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.138
+netmask 255.255.255.248
+gateway 10.37.7.137
+```
+
+### 🔧 Edit Network Configuration Maingate
+
+```
+auto eth0
+iface eth0 inet static
+address 10.37.7.139
+netmask 255.255.255.248
+gateway 10.37.7.137
+```
+
+## ⚖️ Config Routing di GNS3
+
+### 🔧 Foosha
+
+```
+# kiri ke water7
+route add -net 10.37.7.128 netmask 255.255.255.248 gw 10.37.7.145
+route add -net 10.37.7.0 netmask 255.255.255.128 gw 10.37.7.145
+route add -net 10.37.0.0 netmask 255.255.252.0 gw 10.37.7.145
+
+# kanan ke guanhao
+route add -net 10.37.4.0 netmask 255.255.254.0 gw 10.37.7.150
+route add -net 10.37.6.0 netmask 255.255.255.0 gw 10.37.7.150
+route add -net 10.37.7.136  netmask 255.255.255.248 gw 10.37.7.150
+```
+
+### 🔧 Water7
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.37.7.146
+```
+
+### 🔧 Guanhao
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.37.7.149
+```
