@@ -617,9 +617,32 @@ iptables -A FORWARD -d 10.37.7.128/29 -i eth0 -p tcp --dport 80 -j DROP
 
 Keterangan:
 - **-A** adalah command untuk menambah aturan iptable
+- **FORWARD** adalah filter paket yg akan diteruskan
 - **-d** adalah destination
-- **-i** adalah source  
-- **-p** adalah out interface
+- **-i** adalah interface  
+- **-p** adalah protocol yang ingin dimasukkan ke aturan iptable
 - **--dport** adalah pilihan port untuk aturan IPTABLE
+- **-j** adalah definisi rule  
+- **DROP** adalah aturan untuk menolak paket
+
+## 🏷️ Soal 3: Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 3 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Jipangu dan Doriki
+
+- Tambah Aturan IPTABLES
+
+```
+iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+```
+
+Keterangan:
+- **-A** adalah command untuk menambah aturan iptable
+- **INPUT** adalah melakukan filter paket yang masuk firewall
+- **-p** adalah protocol yang ingin dimasukkan ke aturan iptable
+- **-m** adalah definisiin kesesuaian rule untuk tujuan
+- **connlimit** adalah aturan untuk limit connection
+- **connlimit mask** adalah definisi netmask yang akan masuk pada aturan kalau 0 berarti semua netmask
 - **-j** adalah definisi rule  
 - **DROP** adalah aturan untuk menolak paket
