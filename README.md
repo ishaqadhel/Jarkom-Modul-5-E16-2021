@@ -600,5 +600,26 @@ Keterangan:
 - **-A** adalah command untuk menambah aturan iptable
 - **-s** adalah source  
 - **-o** adalah out interface
-- **-j** adalah spesifikasi source  
+- **-j SNAT** adalah spesifikasi source  
 - **--to-source** adalah spesifikasi alamat ip
+
+## 🏷️ Soal 2: Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada server yang merupakan DHCP Server dan DNS Server demi menjaga keamanan.
+
+### ✍️ Langkah-Langkah Pengerjaan:
+
+#### 🖥️ Node Foosha
+
+- Tambah Aturan IPTABLES
+
+```
+iptables -A FORWARD -d 10.37.7.128/29 -i eth0 -p tcp --dport 80 -j DROP
+```
+
+Keterangan:
+- **-A** adalah command untuk menambah aturan iptable
+- **-d** adalah destination
+- **-i** adalah source  
+- **-p** adalah out interface
+- **--dport** adalah pilihan port untuk aturan IPTABLE
+- **-j** adalah definisi rule  
+- **DROP** adalah aturan untuk menolak paket
